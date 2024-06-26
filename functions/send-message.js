@@ -60,7 +60,7 @@ exports.handler = async (event, context) => {
     await transporter.sendMail(mailOptions);
 
     // Read the success.html file
-    const successPage = fs.readFileSync(path.join(__dirname, '../public/success.html'), 'utf8');
+    const successPage = fs.readFileSync(path.join(__dirname, 'public', 'success.html'), 'utf8');
 
     return {
       statusCode: 200,
