@@ -1,11 +1,10 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
- 
+const fs = require('fs');
+const path = require('path');
 
 const NODEKEY = process.env.NODE_KEY;
-const NODEPASS = process.env.NODE_PASS; 
-
-
+const NODEPASS = process.env.NODE_PASS;
 
 function convertQueryStringToJson(queryString) {
   // Split the query string into key-value pairs
@@ -39,7 +38,7 @@ exports.handler = async (event, context) => {
 
   try {
     let data = convertQueryStringToJson(event.body);
-    console.log(data)
+    console.log(data);
     const { name, email, message } = data;
     console.log('Received data:', { name, email, message });
 
@@ -47,7 +46,7 @@ exports.handler = async (event, context) => {
       service: 'gmail',
       auth: {
         user: "jayachandrands0120@gmail.com",
-        pass:  "qjzv wrsj tlet aces",
+        pass: "qjzv wrsj tlet aces",
       },
     });
 
@@ -60,9 +59,15 @@ exports.handler = async (event, context) => {
 
     await transporter.sendMail(mailOptions);
 
+    // Read the success.html file
+    const successPage = fs.readFileSync(path.join(__dirname, 'public', 'success.html'), 'utf8');
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Email successfully sent!' }),
+      headers: {
+        'Content-Type': 'text/html',
+      },
+      body: successPage,
     };
   } catch (error) {
     console.error('Error:', error.message);
