@@ -1,0 +1,19 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Chennai",
+			"country": {
+				"code": "IN",
+				"name": "India"
+			},
+			"subdivision": {
+				"code": "TN",
+				"name": "Tamil Nadu"
+			},
+			"timezone": "Asia/Kolkata",
+			"latitude": 12.8996,
+			"longitude": 80.2209
+		},
+		"timestamp": 1719411768708
+	}
+}
