@@ -1,7 +1,5 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
-const fs = require('fs');
-const path = require('path');
 
 const NODEKEY = process.env.NODE_KEY;
 const NODEPASS = process.env.NODE_PASS;
@@ -59,8 +57,47 @@ exports.handler = async (event, context) => {
 
     await transporter.sendMail(mailOptions);
 
-    // Read the success.html file
-    const successPage = fs.readFileSync(path.join(__dirname, '..', 'public', 'success.html'), 'utf8');
+    // Define the success HTML page content
+    const successPage = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Email Sent Successfully</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+          }
+          .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+            color: #007bff;
+            text-align: center;
+          }
+          p {
+            color: #333;
+            line-height: 1.6;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Email Sent Successfully</h1>
+          <p>Your message has been successfully sent.</p>
+          <p>We will get back to you shortly.</p>
+        </div>
+      </body>
+      </html>
+    `;
 
     return {
       statusCode: 200,
