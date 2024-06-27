@@ -17,7 +17,7 @@ function convertQueryStringToJson(queryString) {
     const [key, value] = pair.split('=');
 
     // Decode the URL-encoded value
-    const decodedValue = decodeURIComponent(value);
+    const decodedValue = decodeURIComponent(value.replace(/\+/g, ' '));
 
     // Assign the key-value pair to the result object
     result[key] = decodedValue;
@@ -43,8 +43,8 @@ exports.handler = async (event, context) => {
     let transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: "jayachandrands0120@gmail.com",
-        pass: "qjzv wrsj tlet aces",
+        user: NODEKEY,
+        pass:  NODEPASS,
       },
     });
 
